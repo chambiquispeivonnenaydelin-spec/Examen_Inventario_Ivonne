@@ -1,41 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-lg">
-            <div class="card-header bg-white pt-4 border-0 text-center">
-                <h3 class="fw-bold">Registrar Producto</h3>
-                <p class="text-muted">Ingresa los detalles del nuevo artículo</p>
-            </div>
-            <div class="card-body p-4">
-                <form method="POST">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold small text-uppercase">Nombre del Producto</label>
-                        <input type="text" name="nombre" class="form-control form-control-lg border-2" placeholder="Ej. Monitor Gamer" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold small text-uppercase">Categoría</label>
-                        <input type="text" name="categoria" class="form-control border-2" placeholder="Ej. Electrónica" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mb-4">
-                            <label class="form-label fw-bold small text-uppercase">Precio ($)</label>
-                            <input type="number" step="0.01" name="precio" class="form-control border-2" placeholder="0.00" required>
-                        </div>
-                        <div class="col-6 mb-4">
-                            <label class="form-label fw-bold small text-uppercase">Stock Inicial</label>
-                            <input type="number" name="stock" class="form-control border-2" placeholder="Cant." required>
-                        </div>
-                    </div>
-                    <div class="d-grid gap-2 pt-2">
-                        <button type="submit" class="btn btn-primary btn-custom btn-lg">
-                            Guardar en Inventario
-                        </button>
-                        <a href="{{ url_for('index') }}" class="btn btn-link text-muted">Volver al panel</a>
-                    </div>
-                </form>
-            </div>
+<div class="glass-card" style="max-width: 450px; margin: 0 auto; text-align: center;">
+    <h2 style="margin-top: 0; color: var(--primary);">Nuevo Registro</h2>
+    <p style="color: #94a3b8; margin-bottom: 30px;">Completa los datos del producto</p>
+
+    <form method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        <input type="text" name="nombre" placeholder="Nombre del producto" 
+               style="padding: 15px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; outline: none;" required>
+        
+        <input type="text" name="categoria" placeholder="Categoría" 
+               style="padding: 15px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; outline: none;" required>
+        
+        <div style="display: flex; gap: 10px;">
+            <input type="number" step="0.01" name="precio" placeholder="Precio ($)" 
+                   style="flex: 1; padding: 15px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; outline: none;" required>
+            
+            <input type="number" name="stock" placeholder="Stock" 
+                   style="flex: 1; padding: 15px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; outline: none;" required>
         </div>
-    </div>
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">GURADAR PRODUCTO</button>
+        <a href="{{ url_for('index') }}" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Cancelar y volver</a>
+    </form>
 </div>
 {% endblock %}

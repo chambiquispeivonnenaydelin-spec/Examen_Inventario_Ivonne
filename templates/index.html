@@ -1,57 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row mb-4 align-items-center">
-    <div class="col">
-        <h2 class="fw-bold text-dark m-0">Panel de Productos</h2>
-        <p class="text-muted">Gestiona el stock de tu negocio en tiempo real.</p>
-    </div>
-    <div class="col-auto">
-        <a href="{{ url_for('registrar') }}" class="btn btn-primary btn-custom shadow">
-            + Nuevo Producto
-        </a>
-    </div>
+<div style="display: flex; justify-content: space-between; width: 100%; align-items: center; margin-bottom: 25px;">
+    <h1 style="margin:0; font-size: 2rem;">Inventario de Ivonne</h1>
+    <a href="{{ url_for('registrar') }}" class="btn">+ Agregar Item</a>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle m-0">
-                <thead class="table-light">
-                    <tr>
-                        <th class="ps-4">ID</th>
-                        <th>Producto</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in productos %}
-                    <tr>
-                        <td class="ps-4 text-muted small">#{{ p.id }}</td>
-                        <td><strong>{{ p.nombre }}</strong></td>
-                        <td><span class="badge bg-info text-dark opacity-75">{{ p.categoria }}</span></td>
-                        <td class="fw-bold text-primary">${{ p.precio }}</td>
-                        <td>
-                            {% if p.stock < 5 %}
-                            <span class="text-danger fw-bold">⚠️ {{ p.stock }}</span>
-                            {% else %}
-                            <span class="text-success">{{ p.stock }} unidades</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ url_for('eliminar', id=p.id) }}" 
-                               class="btn btn-outline-danger btn-sm px-3" 
-                               onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
-                               Borrar
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="glass-card">
+    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1);">
+                <th style="padding: 15px;">Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th style="text-align: center;">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in productos %}
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                <td style="padding: 15px; font-weight: 600;">{{ p.nombre }}</td>
+                <td><span style="background: rgba(79, 172, 254, 0.2); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem;">{{ p.categoria }}</span></td>
+                <td style="color: #4ade80; font-weight: 700;">${{ p.precio }}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: {{ 'red' if p.stock < 5 else '#4ade80' }}"></div>
+                        {{ p.stock }}
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    <a href="{{ url_for('eliminar', id=p.id) }}" style="color: #ff4b2b; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
