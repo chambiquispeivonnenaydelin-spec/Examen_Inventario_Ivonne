@@ -44,5 +44,28 @@ def eliminar(id):
     conexion.close()
     return redirect(url_for('index'))
 
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    conn = sqlite3.connect('inventario.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        categoria = request.form['categoria']
+        precio = request.form['precio']
+        stock = request.form['stock']
+        
+        cursor.execute("UPDATE productos SET nombre=?, categoria=?, precio=?, stock=? WHERE id=?", 
+                       (nombre, categoria, precio, stock, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    
+    cursor.execute("SELECT * FROM productos WHERE id=?", (id,))
+    producto = cursor.fetchone()
+    conn.close()
+    return render_template('editar.html', producto=producto)
+
 if __name__ == '__main__':
     app.run(debug=True)

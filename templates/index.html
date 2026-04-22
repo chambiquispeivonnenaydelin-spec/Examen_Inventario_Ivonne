@@ -13,7 +13,7 @@
                 <th>Categoría</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                <th style="text-align: center;">Acción</th>
+                <th style="text-align: center;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,9 @@
                     </div>
                 </td>
                 <td style="text-align: center;">
-                    <a href="{{ url_for('eliminar', id=p.id) }}" style="color: #ff4b2b; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Eliminar</a>
+                    <a href="{{ url_for('editar', id=p.id) }}" style="color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: bold; margin-right: 15px;">Editar</a>
+                    
+                    <a href="{{ url_for('eliminar', id=p.id) }}" style="color: #ff4b2b; text-decoration: none; font-size: 0.9rem; font-weight: bold;" onclick="return confirm('¿Seguro que deseas eliminar este producto?')">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
